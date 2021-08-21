@@ -25,4 +25,5 @@ RUN python -m pip install git+https://github.com/NVIDIA/NeMo.git@main#egg=nemo_t
 
 COPY . .
 
-RUN python server.py
+EXPOSE 9090
+ENTRYPOINT ["python", "server.py"]
