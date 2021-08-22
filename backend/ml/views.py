@@ -29,7 +29,7 @@ class DocumentListView(APIView):
     def get(self, request):
         records = AudioRecord.objects.filter(state='Обрабатывается')[:10]
         for record in records:
-            data = json.loads(requests.get(f'http://localhost:9090/status?file_id={record.hash}').text)
+            data = json.loads(requests.get(f'http://ml:9090/status?file_id={record.hash}').text)
             if data is not None:
                 print(data)
                 status = data['status']
@@ -129,7 +129,7 @@ class RecordUploadView(APIView):
                 date_of_uploading_start = datetime.now()
                 filepath, hash = write(request.FILES[key], True, title, extension, date_of_recording)
                 with open(filepath, 'rb') as file_to_send:
-                    response = requests.post('http://localhost:9090/transcribe', files={
+                    response = requests.post('http://ml:9090/transcribe', files={
                         'file': file_to_send
                     }).text
                     data = json.loads(response)

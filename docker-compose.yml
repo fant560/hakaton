@@ -21,16 +21,12 @@ services:
     depends_on:
       - db
       - ml
-    networks:
-      - default
   ml:
     build:
       context: ./ml
       dockerfile: Dockerfile  
     ports: 
       - "9090:9090"
-    networks:
-      - default
   frontend:
     build:
       context: ./frontend
@@ -39,8 +35,6 @@ services:
       - "3000:3000"
     depends_on:
       - web
-    networks:
-      - default
 
 
 
