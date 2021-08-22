@@ -47,7 +47,7 @@ const MainLayout = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    socket.current = new WebSocket('ws://default:8000/ws/documents/')
+    socket.current = new WebSocket('ws://web:8000/ws/documents/')
     socket.current.onopen = () => {
       console.log('соединение открыто')
       socket.current.send(JSON.stringify({ game_city: 1 }))
