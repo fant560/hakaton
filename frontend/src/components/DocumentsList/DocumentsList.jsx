@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { List, Divider } from 'antd'
 import {
   listItemStyle,
@@ -8,6 +9,8 @@ import {
 import { getCutedTitle } from './DocumentsList.utils'
 
 const DocumentsList = ({ data, loading }) => {
+  const history = useHistory()
+
   return (
     <List
       itemLayout="horizontal"
@@ -15,7 +18,10 @@ const DocumentsList = ({ data, loading }) => {
       loading={loading}
       renderItem={(item, index) => (
         <>
-          <List.Item css={listItemStyle}>
+          <List.Item
+            onClick={() => history.push(`/documents/${item.id}`)}
+            css={listItemStyle}
+          >
             <div>
               <span>{item.id}</span>
               <span css={itemListTitleStyle}>

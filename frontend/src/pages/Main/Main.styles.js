@@ -7,13 +7,23 @@ export const mainPageStyle = {
 
 export const mainPageSiderStyle = {
   background: theme.backgroundColor2,
-  display: 'flex',
-  justifyContent: 'center',
-  padding: '20px'
+  padding: '20px 0px',
+
+  '.ant-layout-sider-children': {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  }
+}
+
+export const searchStyle = {
+  width: '80%',
+  marginTop: '24px'
 }
 
 export const buttonStyle = {
-  height: '50px'
+  height: '50px',
+  width: '80%'
 }
 
 export const contentStyle = {

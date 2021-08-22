@@ -44,3 +44,12 @@ export const containerStyles = {
   height: '100%',
   padding: '0 20px'
 }
+
+export const linkLogoStyles = {
+  display: 'flex',
+  alignItems: 'center',
+  color: 'rgba(0, 0, 0, 0.85)',
+  '&:hover': {
+    color: 'rgba(0, 0, 0, 0.85)'
+  }
+}

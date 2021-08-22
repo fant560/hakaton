@@ -5,6 +5,7 @@ import { useHttp } from '../../hooks/http.hook'
 import { AuthContext } from '../../contexts/AuthContext'
 import { Form, Input, Button } from 'antd'
 import { formCardStyle, formStyle, formButtonStyle } from './Login.styles'
+import { setCookie } from '../../utils'
 
 const Login = () => {
   const auth = useContext(AuthContext)
@@ -21,9 +22,12 @@ const Login = () => {
     try {
       const data = await request('/ml/login', 'POST', {
         username: values.username,
-        password: values.password,
+        password: values.password
       })
-      auth.login(data.token, data.userId, data.username)
+
+      setCookie('refreshToken', data.refresh, { secure: true })
+
+      auth.login(data.access)
     } catch (e) {
       message(error, true)
       formRef.current.resetFields()

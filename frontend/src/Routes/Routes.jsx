@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import LoginLayout from '../layouts/Login/Login.layout'
 import MainLayout from '../layouts/Main/Main.layout'
 import { routesForAuthUsers, routesForNotAuthUsers } from './routes.config'
-import { LOGIN_PAGE, MAIN_PAGE } from './routes.paths'
+import { LOGIN_PAGE, DOCUMENTS_PAGE } from './routes.paths'
 
 const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
@@ -15,7 +15,7 @@ const useRoutes = isAuthenticated => {
               {route.component}
             </Route>
           ))}
-          <Redirect to={MAIN_PAGE} />
+          <Redirect to={DOCUMENTS_PAGE} />
         </Switch>
       </MainLayout>
     )

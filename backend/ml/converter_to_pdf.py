@@ -67,13 +67,7 @@ def convert(text: list, title, date):
     if not doc_path.exists():
         doc_path.mkdir()
     pdf.output(dest='F', name=doc_path.joinpath(title + '.pdf'))
-    # TODO проверить сохранение через REST, через main() джанга не запущена
-    document = Document(uuid=hashlib.sha1((title + date).encode('utf-8')),
-                        date_of_creation=parser.parse(date),
-                        audio_record_id=None, date_of_recording=datetime.datetime.now(),
-                        storage_link=doc_path.joinpath(title + '.pdf').relative_to(user_home),
-                        state='PROCESSED')
-    document.save()
+    return doc_path.joinpath(title + '.pdf')
 
 
 def main():

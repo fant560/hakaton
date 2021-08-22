@@ -1,7 +1,13 @@
-FROM node:11-alpine
+FROM node
+
+WORKDIR /app
+
+COPY package.json /app
+
+RUN yarn
 
 COPY . .
 
-RUN yarn install --ignore-engines
+EXPOSE 3000
 
-ENTRYPOINT ["yarn","start"]
+CMD ["yarn", "start"]

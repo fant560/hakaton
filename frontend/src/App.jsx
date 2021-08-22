@@ -4,14 +4,14 @@ import { AuthContext } from './contexts/AuthContext'
 import useRoutes from './Routes/Routes'
 
 const App = () => {
-  const { token, login, logout, userId, username } = useAuth()
-  const isAuthenticated = !!token
+  const { accessToken, login, logout, userId, username } = useAuth()
+  const isAuthenticated = !!accessToken
   const routes = useRoutes(isAuthenticated)
 
   return (
     <AuthContext.Provider
       value={{
-        token,
+        accessToken,
         login,
         logout,
         userId,

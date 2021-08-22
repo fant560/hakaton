@@ -1,16 +1,16 @@
-import { useContext, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { useMessage } from '../../hooks/message.hook'
 import { useHttp } from '../../hooks/http.hook'
-import { AuthContext } from '../../contexts/AuthContext'
 import { Form, Input, Button } from 'antd'
 import { formCardStyle, formStyle, formButtonStyle } from './Register.styles'
+import { LOGIN_PAGE } from '../../Routes/routes.paths'
 
 const Register = () => {
-  const auth = useContext(AuthContext)
   const message = useMessage()
   const { loading, request, error, clearError } = useHttp()
   const formRef = useRef()
+  const history = useHistory()
 
   useEffect(() => {
     message(error, true)
@@ -19,17 +19,19 @@ const Register = () => {
 
   const handleSubmit = async values => {
     try {
-      const data = await request('/ml/register', 'POST', {
-        user: {
-          username: values.username,
-          email: values.email,
-          password: values.password,
-        },
+      request('/ml/register', 'POST', {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        first_name: values.firstName,
+        last_name: values.lastName
       })
-      auth.login(data.user.token, data.user.userId, data.user.username)
+      message('Вы успешно зарегистрированы!', false)
+      history.push(LOGIN_PAGE)
+      formRef.current.resetFields()
     } catch (e) {
       message(error, true)
-      formRef.current.resetFields()
+      formRef.current?.resetFields()
     }
   }
 
@@ -54,6 +56,22 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
+          label="Имя"
+          name="firstName"
+          rules={[{ required: true, message: 'Введите имя!' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Фамилия"
+          name="lastName"
+          rules={[{ required: true, message: 'Введите фамилию!' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
           label="Почта"
           name="email"
           rules={[
@@ -61,8 +79,8 @@ const Register = () => {
             {
               required: true,
               type: 'email',
-              message: 'Не соответствует типу email!',
-            },
+              message: 'Не соответствует типу email!'
+            }
           ]}
         >
           <Input />
@@ -79,8 +97,8 @@ const Register = () => {
                   return Promise.resolve()
                 }
                 return Promise.reject(new Error('Пароль не менее 8 символов!'))
-              },
-            }),
+              }
+            })
           ]}
         >
           <Input.Password />
@@ -93,7 +111,7 @@ const Register = () => {
           rules={[
             {
               required: true,
-              message: 'Подтвердите пароль!',
+              message: 'Подтвердите пароль!'
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
@@ -101,8 +119,8 @@ const Register = () => {
                   return Promise.resolve()
                 }
                 return Promise.reject(new Error('Пароли не совпадают!'))
-              },
-            }),
+              }
+            })
           ]}
         >
           <Input.Password />

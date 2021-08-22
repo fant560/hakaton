@@ -10,7 +10,7 @@ import { useAuth } from '../../hooks/auth.hook'
 const UploadFileForm = ({ setIsModalVisible }) => {
   const message = useMessage()
   const formRef = useRef()
-  const login = useAuth()
+  const auth = useAuth()
   const { loading, request, error, clearError } = useHttp()
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const UploadFileForm = ({ setIsModalVisible }) => {
       'POST',
       FD,
       {
-        Authorization: `Bearer ${login.token}`
+        Authorization: `Bearer ${auth.accessToken}`
       },
       true
     )
